@@ -29,4 +29,16 @@ app.put('/posts/:id', async (req, res) => {
     }
 })
 
+app.get('/posts/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        console.log(id, '<--')
+        const post = Post.findByPk(id)
+
+        res.json(post)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 app.listen(3000)
