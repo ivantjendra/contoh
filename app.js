@@ -10,4 +10,13 @@ app.post('/register', (req, res) => {
     User.create()
 })
 
+app.delete('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        Post.destroy(id)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 app.listen(3000)
