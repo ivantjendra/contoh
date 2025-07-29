@@ -29,12 +29,24 @@ app.put('/posts/:id', async (req, res) => {
     }
 })
 
+
+app.patch('/posts/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        
+        const post = await Post.update(id)
+        console.log(post, '<--')
+        res.json(post)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 app.get('/posts/:id', async (req, res) => {
     const { id } = req.params
     try {
         console.log(id, '<--')
         const post = Post.findByPk(id)
-
         res.json(post)
     } catch (err) {
         res.send(err)
