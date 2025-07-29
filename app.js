@@ -1,0 +1,56 @@
+const express = require('express')
+const app = express()
+
+app.post('/login', (req, res) => {
+    User.create()
+})
+
+app.post('/register', (req, res) => {
+    const { email, password } = req.body
+    User.create()
+})
+
+app.delete('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        Post.destroy(id)
+    } catch(err) {
+        res.send(err)
+    }
+})
+
+app.put('/posts/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        console.log(id, '<--')
+        Post.update(id)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+
+app.patch('/posts/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        
+        const post = await Post.update(id)
+        console.log(post, '<--')
+        res.json(post)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+app.get('/posts/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        console.log(id, '<--')
+        const post = Post.findByPk(id)
+        res.json(post)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+app.listen(3000)
